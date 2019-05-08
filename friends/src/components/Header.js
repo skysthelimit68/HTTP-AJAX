@@ -12,10 +12,11 @@ class Header extends React.Component {
 
     render() {
         return(
-            <div>
+            <div className="headerWrapper">
+            <div className="headerInner">
                 <h2>Friends List</h2>
                 <AddModal buttonLabel="Add Friend"/>
-            </div>    
+            </div>  </div>  
         )
        
     }

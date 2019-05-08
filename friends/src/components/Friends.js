@@ -22,16 +22,29 @@ class Friends extends React.Component {
             });
     }
 
+    componentDidUpdate() {
+        axios
+        .get('http://localhost:5000/friends')
+            .then(res => {
+                this.setState({ data: res.data })
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+
 
     render() {
         return (
-            <div>
+            <div class="friendsWrapper">
+            
                 {this.state.data.map(elem => (
                     <Friend friend={elem} />
                 ))}
             </div>
-            )
-        }
+        )
     }
-    
+}
+
 export default Friends;

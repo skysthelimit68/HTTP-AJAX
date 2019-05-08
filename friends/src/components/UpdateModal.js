@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import MainForm from './Form';
 
-class AddModal extends React.Component {
+class UpdateModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,19 +24,13 @@ class AddModal extends React.Component {
   }
 
   render() {
-      let friend = {
-          id:'',
-          name:'',
-          age:'',
-          email:''
-      }
     return (
       <div>
         <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Add a New Friend</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Update {this.props.friend.name}</ModalHeader>
           <ModalBody>
-            <MainForm updateModalStatus = {this.updateModalStatus} formType="add" friend = {friend}/>              
+            <MainForm updateModalStatus = {this.updateModalStatus} formType="update" friend={this.props.friend}/>              
           </ModalBody>
           
         </Modal>
@@ -45,4 +39,4 @@ class AddModal extends React.Component {
   }
 }
 
-export default AddModal;
+export default UpdateModal;

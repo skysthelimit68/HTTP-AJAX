@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  display:flex;
 }
 
 .App-logo {
@@ -21,6 +22,58 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.friendsWrapper {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+}
+
+.cardWrapper {
+  width:30%;
+  min-height:250px;
+  margin:10px 0;
+}
+
+.cardWrapper .card {
+  min-height: 250px;
+
+}
+
+.cardWrapper .card-body {
+  position: relative;
+}
+
+.headerWrapper {
+  background: #222222;
+    color: white;
+    
+}
+
+.headerInner {
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  align-items: center;
+}
+
+.friendButtonWrapper {
+  display: flex;
+  position: absolute;
+  bottom: 15px;
+}
+
+.friendButtonWrapper .btn {
+  margin-right:20px;
 }
 
 @keyframes App-logo-spin {

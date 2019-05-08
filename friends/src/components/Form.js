@@ -1,15 +1,17 @@
 import React from "react";
 import axios from "axios";
 
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class MainForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
-            age: "",
-            email: ""
+            formType: props.formType,
+            name: props.friend.name,
+            age: props.friend.age,
+            email: props.friend.email,
+            id: props.friend.id
         }
     }
 
@@ -22,11 +24,11 @@ class MainForm extends React.Component {
 
     onSubmit = event => {
         event.preventDefault();
-        axios.post({
+        axios.post('http://localhost:5000/friends', {
             name: this.state.name,
             age: this.state.age,
             email: this.state.email
-        })
+          })
             .then(function (response) {
                 console.log(response);
             })
@@ -41,7 +43,35 @@ class MainForm extends React.Component {
         this.props.updateModalStatus(false);
     }
 
+    onUpdate = event => {
+        event.preventDefault();
+        axios.put(`http://localhost:5000/friends/${this.state.id}`, {
+            name: this.state.name,
+            age: this.state.age,
+            email: this.state.email
+        })   
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        }); 
+        this.setState({
+            name:"",
+            age:"",
+            email:""
+        })  
+    }
+
+
   render() {
+    const addButton = {
+        display: this.state.formType === "add" ? 'inline-block' : "none",
+      };
+      const updateButton = {
+        display: this.state.formType === "update" ? 'inline-block' : "none",
+
+      }
     return (
       <Form>
         <FormGroup onSubmit = {this.onSubmit}>
@@ -51,16 +81,16 @@ class MainForm extends React.Component {
             name="name" 
             id="name" 
             onChange = {this.changeInput}
-            placeholder="name" />
+            placeholder={this.state.name === "" ? "name" : this.state.name} />
         </FormGroup>
         <FormGroup>
           <Label for="age">Age</Label>
           <Input 
-            type="text" 
+            type="number" 
             name="age" 
             id="age" 
             onChange = {this.changeInput}
-            placeholder="age" />
+            placeholder={this.state.age === "" ? "age" : this.state.age} />
         </FormGroup>
         <FormGroup>
           <Label for="email">Email</Label>
@@ -69,9 +99,10 @@ class MainForm extends React.Component {
             name="email" 
             id="email" 
             onChange = {this.changeInput}
-            placeholder="email" />
+            placeholder={this.state.email === "" ? "email" : this.state.email} />
         </FormGroup>
-        <Button onClick = {this.onSubmit}>Submit</Button>
+                <Button style={addButton} onClick = {this.onSubmit}>Submit</Button>
+                <Button style={updateButton} onClick = {this.onUpdate}>Update</Button>
       </Form>
     );
   }
